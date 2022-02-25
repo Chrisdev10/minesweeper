@@ -1,0 +1,6 @@
+<table *ngFor="let row of sizeArray; let i = index">
+    <tr *ngFor="let cell of sizeArray; let j = index">
+        <td> {{ this.gamePanel[i][j].$value }} </td>
+    </tr>
+    <br>
+</table>
