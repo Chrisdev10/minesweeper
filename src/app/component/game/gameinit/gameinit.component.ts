@@ -9,25 +9,32 @@ import { Cell } from 'src/app/models/cell.models';
 })
 export class GameinitComponent implements OnInit {
   gamePanel: Cell[][] = [];
-  bomb: number = 12;
+  bomb: number = 15;
   panelSize: number = 10;
   sizeArray: any[] = Array(this.panelSize).fill("");
   cellLeft: number = this.panelSize * this.panelSize;
+  firstclick: boolean = false;
+  indexOfFC: number[] = [];
   constructor() { }
 
   ngOnInit(): void {
+    this.iniTab();
     
-    this.setBomb();    
-    this.setNeightbours();
   }
 
-  setBomb(){
-
+  iniTab(){
     for(let i = 0; i < this.panelSize; i++){
       this.gamePanel[i] = []
       for(let j = 0; j < this.panelSize ; j++){
         this.gamePanel[i][j] = new Cell();
-        const numb = Math.floor(Math.random()*this.cellLeft);
+      }
+    }
+  }
+  setBomb(){
+    for(let i = 0; i < this.panelSize; i++){
+      for(let j = 0; j < this.panelSize ; j++){
+        if(this.saveZone(i,j)){
+        let numb = Math.floor(Math.random()*this.cellLeft);
         if(numb <= this.bomb){
           this.gamePanel[i][j].$isBomb = true;
           this.gamePanel[i][j].$value = -1;
@@ -35,8 +42,9 @@ export class GameinitComponent implements OnInit {
         }else{
           this.gamePanel[i][j].$value = 0;
         }
-        
         this.cellLeft--;
+      }
+    
       }
     }
 
@@ -75,6 +83,36 @@ export class GameinitComponent implements OnInit {
     }
 
   }
+  getPos(i:number,j:number){
+    if(!this.firstclick){
+      this.gamePanel[i][j].$value = 0;
+      this.gamePanel[i][j].$isShow = true;
+      this.indexOfFC[0] = i;
+      this.indexOfFC[1] = j;
+      this.cellLeft--;
+      this.firstclick = true;
+      this.setBomb();
+      this.setNeightbours();
+      
+    }else{
+      for(let i = 0; i < this.panelSize; i++){
+        for(let j = 0; j < this.panelSize ; j++){
 
+      }
+    }
+    }
+    
+  }
+
+  saveZone(x:number,y:number):boolean{
+    const i = this.indexOfFC[0];
+    const j = this.indexOfFC[1];
+    if((x+1) == i || (x-1) == i || (y-1) == j || (y+1) == j || x == i || y == j){
+      return false;
+    }else{
+      return true;
+    }
+
+  }
 
 }

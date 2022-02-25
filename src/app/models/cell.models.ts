@@ -1,6 +1,6 @@
 export class Cell{
     private isBomb: boolean = false;
-    private isShow: boolean = false;
+    private isShow: boolean = true;
     private value: number = 0;
 
 	constructor() {

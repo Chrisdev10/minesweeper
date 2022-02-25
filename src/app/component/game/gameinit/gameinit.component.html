@@ -1,6 +1,6 @@
 <table >
     <tr *ngFor="let row of sizeArray; let i = index">
-        <td  *ngFor="let cell of sizeArray; let j = index" > {{ this.gamePanel[i][j].$value }} </td>
+        <td (click)="getPos(i,j)"  *ngFor="let cell of sizeArray; let j = index" > {{ this.gamePanel[i][j].$isShow ? this.gamePanel[i][j].$value:'' }} </td>
     </tr>
     
 </table>
