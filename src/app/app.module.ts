@@ -5,12 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainmenuComponent } from './component/mainmenu/mainmenu.component';
 import { GameinitComponent } from './component/game/gameinit/gameinit.component';
+import { ColorchangerDirective } from './component/game/gameinit/colorchanger.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainmenuComponent,
-    GameinitComponent
+    GameinitComponent,
+    ColorchangerDirective
   ],
   imports: [
     BrowserModule,

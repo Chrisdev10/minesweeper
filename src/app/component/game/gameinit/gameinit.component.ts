@@ -9,18 +9,16 @@ import { Cell } from 'src/app/models/cell.models';
 })
 export class GameinitComponent implements OnInit {
   gamePanel: Cell[][] = [];
-  bomb: number = 15;
-  panelSize: number = 8;
+  bomb: number = 12;
+  panelSize: number = 10;
   sizeArray: any[] = Array(this.panelSize).fill("");
   cellLeft: number = this.panelSize * this.panelSize;
   constructor() { }
 
   ngOnInit(): void {
     
-    this.setBomb();
-    
-    
-    
+    this.setBomb();    
+    this.setNeightbours();
   }
 
   setBomb(){
@@ -32,10 +30,10 @@ export class GameinitComponent implements OnInit {
         const numb = Math.floor(Math.random()*this.cellLeft);
         if(numb <= this.bomb){
           this.gamePanel[i][j].$isBomb = true;
-          this.gamePanel[i][j].$value = "X";
+          this.gamePanel[i][j].$value = -1;
           this.bomb--;
         }else{
-          this.gamePanel[i][j].$value = "0";
+          this.gamePanel[i][j].$value = 0;
         }
         
         this.cellLeft--;
@@ -43,8 +41,39 @@ export class GameinitComponent implements OnInit {
     }
 
   }
-  initPanel(){
-    
+  setNeightbours(){
+
+    for(let i = 0; i < this.panelSize; i++){
+      for(let j = 0; j < this.panelSize ; j++){
+        if(this.gamePanel[i][j].$value == -1){
+            if(i > 0 && this.gamePanel[i-1][j].$value !== -1){
+              this.gamePanel[i-1][j].$value += 1;
+              if(j > 0 && this.gamePanel[i-1][j-1].$value !== -1){
+                this.gamePanel[i-1][j-1].$value += 1;
+              }
+              if ( j < this.panelSize -1 && this.gamePanel[i-1][j+1].$value !== -1){
+                this.gamePanel[i-1][j+1].$value += 1;
+              }
+            }
+            if(i < this.panelSize - 1 && this.gamePanel[i+1][j].$value !== -1){
+              this.gamePanel[i+1][j].$value += 1;
+              if(j > 0 && this.gamePanel[i+1][j-1].$value !== -1){
+                this.gamePanel[i+1][j-1].$value += 1;
+              }
+              if ( j < this.panelSize -1 && this.gamePanel[i+1][j+1].$value !== 1){
+                this.gamePanel[i+1][j+1].$value += 1;
+              }
+            }
+            if(j > 0 && this.gamePanel[i][j-1].$value !== -1){
+              this.gamePanel[i][j-1].$value += 1;
+            }
+            if(j < this.panelSize - 1 && this.gamePanel[i][j+1].$value !== -1){
+              this.gamePanel[i][j+1].$value += 1;
+            }
+          }
+      }
+    }
+
   }
 
 

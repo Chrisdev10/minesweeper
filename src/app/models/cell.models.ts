@@ -1,7 +1,7 @@
 export class Cell{
     private isBomb: boolean = false;
     private isShow: boolean = false;
-    private value: string = "X";
+    private value: number = 0;
 
 	constructor() {
 	}
@@ -45,7 +45,7 @@ export class Cell{
      * Getter $value
      * @return {string }
      */
-	public get $value(): string  {
+	public get $value(): number  {
 		return this.value;
 	}
 
@@ -53,7 +53,7 @@ export class Cell{
      * Setter $value
      * @param {string } value
      */
-	public set $value(value: string ) {
+	public set $value(value: number ) {
 		this.value = value;
 	}
 
