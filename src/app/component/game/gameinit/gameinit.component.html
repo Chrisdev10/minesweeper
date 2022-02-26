@@ -1,6 +1,8 @@
-<table >
-    <tr *ngFor="let row of sizeArray; let i = index">
-        <td (click)="getPos(i,j)"  *ngFor="let cell of sizeArray; let j = index" > {{ this.gamePanel[i][j].$isShow ? this.gamePanel[i][j].$value:'' }} </td>
-    </tr>
-    
-</table>
+<div class="contain">
+    <table>
+        <tr *ngFor="let row of sizeArray; let i = index">
+            <td [ngStyle]="{'backgroundColor': this.gamePanel[i][j].$isBomb && this.gamePanel[i][j].$isShow ? 'red' : 'white'}" [ngStyle]="{'color': setColors(this.gamePanel[i][j])}" (click)="getPos(i,j)"  *ngFor="let cell of sizeArray; let j = index" > {{ this.gamePanel[i][j].$isShow ? this.gamePanel[i][j].$value:'' }} </td>
+        </tr>
+        
+    </table>
+</div>
