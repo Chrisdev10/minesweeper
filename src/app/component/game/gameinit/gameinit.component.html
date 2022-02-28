@@ -4,10 +4,10 @@
         <tr *ngFor="let row of sizeArray; let i = index">
             <td  (appFlagSetter)="Rclick($event)" (checker)="$event ? getPos(i,j) : ''" [cell]="this.gamePanel[i][j]" [ngStyle]="{'backgroundColor': this.gamePanel[i][j].$isBomb && this.gamePanel[i][j].$isShow ? 'red' : 'white'}" [ngStyle]="{'color': setColors(this.gamePanel[i][j])}"  *ngFor="let cell of sizeArray; let j = index" >
                 <span *ngIf="this.gamePanel[i][j].$isFlag">
-                    <img src="./../../../../assets/flag.png" class="flag" alt="" srcset="">
+                    <img src="./assets/flag.png" class="flag" alt="" srcset="">
                 </span>
                 <span *ngIf="this.gamePanel[i][j].$isBomb && this.gamePanel[i][j].$isShow">
-                    <img src="./../../../../assets/explosion.png" class="flag" alt="" srcset="">
+                    <img src=".assets/explosion.png" class="flag" alt="" srcset="">
                 </span>
                 {{ this.gamePanel[i][j].$isShow && !this.gamePanel[i][j].$isBomb ? this.gamePanel[i][j].$value:'' }} </td>
         </tr>
