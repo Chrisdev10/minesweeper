@@ -7,7 +7,7 @@
                     <img src="./assets/flag.png" class="flag" alt="" srcset="">
                 </span>
                 <span *ngIf="this.gamePanel[i][j].$isBomb && this.gamePanel[i][j].$isShow">
-                    <img src=".assets/explosion.png" class="flag" alt="" srcset="">
+                    <img src="./assets/explosion.png" class="flag" alt="" srcset="">
                 </span>
                 {{ this.gamePanel[i][j].$isShow && !this.gamePanel[i][j].$isBomb ? this.gamePanel[i][j].$value:'' }} </td>
         </tr>
