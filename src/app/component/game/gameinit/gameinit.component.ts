@@ -34,11 +34,13 @@ export class GameinitComponent implements OnInit {
   }
 
   Rclick(check:boolean){  
-    if(check){
-      this.flag--;
-    }else{
-      this.flag++;
-    }  
+    if(this.firstclick){
+      if(check && this.flag > 0){
+        this.flag--;
+      }else{
+        this.flag++;
+      }  
+    }
     
   }
 

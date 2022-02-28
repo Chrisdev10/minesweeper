@@ -2,8 +2,8 @@
     <app-chrono [bombLeft]="flag" ></app-chrono>
     <table>
         <tr *ngFor="let row of sizeArray; let i = index">
-            <td  (appFlagSetter)="Rclick($event)" (checker)="$event ? getPos(i,j) : ''" [cell]="this.gamePanel[i][j]" [ngStyle]="{'backgroundColor': this.gamePanel[i][j].$isBomb && this.gamePanel[i][j].$isShow ? 'red' : 'white'}" [ngStyle]="{'color': setColors(this.gamePanel[i][j])}"  *ngFor="let cell of sizeArray; let j = index" >
-                <span *ngIf="this.gamePanel[i][j].$isFlag && !gameEnd">
+            <td  (appFlagSetter)="Rclick($event)" [nbrFlag]="flag" [gameStart]="firstclick" (checker)="$event ? getPos(i,j) : ''" [cell]="this.gamePanel[i][j]" [ngStyle]="{'backgroundColor': this.gamePanel[i][j].$isBomb && this.gamePanel[i][j].$isShow ? 'red' : 'white'}" [ngStyle]="{'color': setColors(this.gamePanel[i][j])}"  *ngFor="let cell of sizeArray; let j = index" >
+                <span *ngIf="this.gamePanel[i][j].$isFlag && !gameEnd && firstclick">
                     <img src="./assets/flag.png" class="flag" alt="" srcset="">
                 </span>
                 <span *ngIf="this.gamePanel[i][j].$isBomb && this.gamePanel[i][j].$isShow">
