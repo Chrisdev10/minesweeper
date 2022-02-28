@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import * as _ from 'lodash';
 import { Cell } from 'src/app/models/cell.models';
 import { ChronoComponent } from '../chrono/chrono.component';
@@ -17,13 +18,16 @@ export class GameinitComponent implements OnInit {
   cellLeft: number = this.panelSize * this.panelSize;
   firstclick: boolean = false;
   indexOfFC: number[] = [];
+  gameEndW: boolean = false;
+  gameEndL: boolean = false;
+  gameEnd: boolean = false;
   @ViewChild(ChronoComponent) chrono: any;   
   tab: {
     cell: Cell;
     i:number;
     j:number;
   }[] = [];
-  constructor() { }
+  constructor(){ }
 
   ngOnInit(): void {
     this.iniTab();    
@@ -36,6 +40,10 @@ export class GameinitComponent implements OnInit {
       this.flag++;
     }  
     
+  }
+
+  restart(){
+    window.location.reload();
   }
 
   endGame(): boolean{
@@ -103,11 +111,15 @@ export class GameinitComponent implements OnInit {
     }
     if(!this.endGame()){
       this.chrono.stop();
-      
-      
+      _.flatten(this.gamePanel).forEach(x => x.$isShow = true);
+      this.gameEndW = true;
+      this.gameEnd = true;
     }
     if(this.gamePanel[i][j].$isBomb){
       this.chrono.stop();
+      _.flatten(this.gamePanel).forEach(x => x.$isShow = true);
+      this.gameEndL = true;
+      this.gameEnd = true;
       
     }
     if(this.gamePanel[i][j].$value == 0){

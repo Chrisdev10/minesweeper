@@ -11,6 +11,19 @@
                 </span>
                 {{ this.gamePanel[i][j].$isShow && !this.gamePanel[i][j].$isBomb ? this.gamePanel[i][j].$value:'' }} </td>
         </tr>
+        
     </table>
-    
+    <ng-container *ngIf="gameEnd && (gameEndW || gameEndL)">
+        <div class="scoretab" *ngIf="gameEndW;else losing">
+            YOU WIN :) !
+        </div>
+    </ng-container>
+    <ng-container *ngIf="gameEndW || gameEndL">
+        <button class="btn btn-dark" (click)="restart()"> RESTART </button>
+    </ng-container>
+    <ng-template #losing>
+        <div class="scoretab">
+            YOU LOSE :(
+        </div>
+    </ng-template>
 </div>
