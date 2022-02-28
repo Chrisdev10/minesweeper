@@ -1,9 +1,27 @@
 export class Cell{
     private isBomb: boolean = false;
     private isShow: boolean = false;
+    private isFlag: boolean = false;
     private value: number = 0;
 
 	constructor() {
+	}
+
+
+    /**
+     * Getter $isFlag
+     * @return {boolean }
+     */
+	public get $isFlag(): boolean  {
+		return this.isFlag;
+	}
+
+    /**
+     * Setter $isFlag
+     * @param {boolean } value
+     */
+	public set $isFlag(value: boolean ) {
+		this.isFlag = value;
 	}
 
 

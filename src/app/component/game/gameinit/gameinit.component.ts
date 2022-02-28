@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import * as _ from 'lodash';
 import { Cell } from 'src/app/models/cell.models';
+import { ChronoComponent } from '../chrono/chrono.component';
 
 @Component({
   selector: 'app-gameinit',
@@ -9,13 +10,14 @@ import { Cell } from 'src/app/models/cell.models';
 })
 export class GameinitComponent implements OnInit {
   gamePanel: Cell[][] = [];
-  bomb: number = 15 ;
+  bomb: number = 12 ;
+  flag: number = this.bomb;
   panelSize: number = 10;
   sizeArray: any[] = Array(this.panelSize).fill("");
   cellLeft: number = this.panelSize * this.panelSize;
   firstclick: boolean = false;
   indexOfFC: number[] = [];
-
+  @ViewChild(ChronoComponent) chrono: any;   
   tab: {
     cell: Cell;
     i:number;
@@ -27,6 +29,19 @@ export class GameinitComponent implements OnInit {
     this.iniTab();    
   }
 
+  Rclick(check:boolean){  
+    if(check){
+      this.flag--;
+    }else{
+      this.flag++;
+    }  
+    
+  }
+
+  endGame(): boolean{
+    
+    return _.flatten(this.gamePanel).some(x => !x.$isBomb && !x.$isShow)
+  }
   iniTab(){
     for(let i = 0; i < this.panelSize; i++){
       this.gamePanel[i] = []
@@ -39,7 +54,7 @@ export class GameinitComponent implements OnInit {
     for(let i = 0; i < this.panelSize; i++){
       for(let j = 0; j < this.panelSize ; j++){
         let numb = Math.floor((Math.random()*this.cellLeft));
-        if(numb < this.bomb && this.saveZone(i,j)){
+        if(numb <= this.bomb && this.saveZone(i,j) && this.bomb > 0){
           this.gamePanel[i][j].$isBomb = true;
           this.gamePanel[i][j].$value = -1;
           this.bomb--;
@@ -49,9 +64,7 @@ export class GameinitComponent implements OnInit {
           this.cellLeft--;
         }        
       }
-    }
-    console.log(this.bomb+"  "+this.cellLeft);
-    
+    }    
 
   }
   iteratorPanel(){
@@ -82,9 +95,20 @@ export class GameinitComponent implements OnInit {
       this.indexOfFC[1] = j;
       this.firstclick = true;
       this.setBomb();
+      this.chrono.start();
       this.iteratorPanel();
+      this.endGame();
     }else{
-      this.gamePanel[i][j].$isShow = true;
+      this.gamePanel[i][j].$isShow = true;      
+    }
+    if(!this.endGame()){
+      this.chrono.stop();
+      
+      
+    }
+    if(this.gamePanel[i][j].$isBomb){
+      this.chrono.stop();
+      
     }
     if(this.gamePanel[i][j].$value == 0){
       for( let cell of this.getNeightbours(i,j)){

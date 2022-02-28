@@ -5,14 +5,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { MainmenuComponent } from './component/mainmenu/mainmenu.component';
 import { GameinitComponent } from './component/game/gameinit/gameinit.component';
-import { ColorchangerDirective } from './component/game/gameinit/colorchanger.directive';
+import { ChronoComponent } from './component/game/chrono/chrono.component';
+import { FlagSetterDirective } from './component/game/gameinit/flag-setter.directive';
+import { WinnerComponent } from './component/game/winner/winner.component';
+import { LoserComponent } from './component/game/loser/loser.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MainmenuComponent,
     GameinitComponent,
-    ColorchangerDirective
+    ChronoComponent,
+    FlagSetterDirective,
+    WinnerComponent,
+    LoserComponent
   ],
   imports: [
     BrowserModule,
