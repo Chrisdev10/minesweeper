@@ -7,8 +7,8 @@ import { MainmenuComponent } from './component/mainmenu/mainmenu.component';
 import { GameinitComponent } from './component/game/gameinit/gameinit.component';
 import { ChronoComponent } from './component/game/chrono/chrono.component';
 import { FlagSetterDirective } from './component/game/gameinit/flag-setter.directive';
-import { WinnerComponent } from './component/game/winner/winner.component';
-import { LoserComponent } from './component/game/loser/loser.component';
+import { SettingsComponent } from './component/game/settings/settings.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,12 +17,13 @@ import { LoserComponent } from './component/game/loser/loser.component';
     GameinitComponent,
     ChronoComponent,
     FlagSetterDirective,
-    WinnerComponent,
-    LoserComponent
+    SettingsComponent,
+
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

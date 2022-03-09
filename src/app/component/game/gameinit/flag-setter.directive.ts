@@ -13,7 +13,9 @@ export class FlagSetterDirective {
   @Input() nbrFlag: number|any;
   constructor(
     private elem: ElementRef
-  ) { }
+  ) { 
+    
+  }
 
   @HostListener('contextmenu',['$event']) setFlag(e:any){
     e.preventDefault();

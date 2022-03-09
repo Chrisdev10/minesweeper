@@ -1,0 +1,13 @@
+<div  class="settings">
+    <form [formGroup]="form" (ngSubmit)="subs()">
+        <label for="bomb">set bomb</label><br>
+        <input type="number" id="bomb" formControlName="bomb"><br>
+        <p style="color:red" *ngIf="this.form.controls['bomb'].errors?.['max']">
+           valeur MAX : {{ this.form.controls['bomb'].errors?.['max'].max }}</p>
+        <label for="size">set size</label><br>
+        <input type="number" id="size" formControlName="size"><br>
+        <p style="color:red" *ngIf="this.form.controls['size'].errors?.['max']">
+            valeur MAX : {{ this.form.controls['size'].errors?.['max'].max }}</p>
+        <button class="btn btn-dark" type="submit">valid</button>
+    </form>
+</div>

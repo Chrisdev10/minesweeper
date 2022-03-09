@@ -1,7 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
+import { reduce } from 'lodash';
 import { Cell } from 'src/app/models/cell.models';
+import { SettingsService } from 'src/app/service/settings.service';
 import { ChronoComponent } from '../chrono/chrono.component';
 
 @Component({
@@ -11,10 +13,10 @@ import { ChronoComponent } from '../chrono/chrono.component';
 })
 export class GameinitComponent implements OnInit {
   gamePanel: Cell[][] = [];
-  bomb: number = 12 ;
+  bomb: number = 12;
   flag: number = this.bomb;
   panelSize: number = 10;
-  sizeArray: any[] = Array(this.panelSize).fill("");
+  sizeArray: any[] = []
   cellLeft: number = this.panelSize * this.panelSize;
   firstclick: boolean = false;
   indexOfFC: number[] = [];
@@ -27,10 +29,32 @@ export class GameinitComponent implements OnInit {
     i:number;
     j:number;
   }[] = [];
-  constructor(){ }
-
-  ngOnInit(): void {
+  constructor(private service : SettingsService, private router: Router){ 
+    this.bomb = this.service.$bombNb;
+    this.panelSize = this.service.$panelsize;
+    this.sizeArray = Array(this.panelSize).fill("");
+    this.flag = this.bomb
+    this.cellLeft = this.panelSize * this.panelSize;
+  }
+  
+  ngOnInit(): void {     
+    
+    console.log(this.bomb);
+    
     this.iniTab();    
+  }
+  
+  setBackground(cell:Cell):string{
+    if(cell.$isBomb && cell.$isShow){
+      return "red";
+    }
+    if(!cell.$isShow){
+      return "grey";
+    }else{
+      return "lightgray";
+    }
+    
+    
   }
 
   Rclick(check:boolean){  
@@ -45,7 +69,7 @@ export class GameinitComponent implements OnInit {
   }
 
   restart(){
-    window.location.reload();
+    this.router.navigate(['settings']);
   }
 
   endGame(): boolean{
