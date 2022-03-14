@@ -8,6 +8,11 @@
     border-radius: 10px;
 
 }
+@media (max-width: 576px){
+    .settings{
+        width:90%;
+    }
+}
 label,button{
     margin: 5px;
 }
