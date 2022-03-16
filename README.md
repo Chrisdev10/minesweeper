@@ -28,5 +28,5 @@ Download all the files and run it locally using `ng serve`
 </br>
 
 
-![GameScreen](/minesweeper/src/assets/capture.png)
+![GameScreen](src/assets/capture.png)
 
