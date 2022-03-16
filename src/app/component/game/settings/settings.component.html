@@ -8,6 +8,8 @@
         <input type="number" id="size" formControlName="size"><br>
         <p style="color:red" *ngIf="this.form.controls['size'].errors?.['max']">
             valeur MAX : {{ this.form.controls['size'].errors?.['max'].max }}</p>
+        <p style="color:red" *ngIf="this.form.errors !== null">
+        {{ this.form.errors?.['message'] }}</p>
         <button class="btn btn-dark" type="submit">valid</button>
     </form>
 </div>

@@ -14,16 +14,19 @@ td{
 }
 .bomb{
     background-color: red;
+    width: 25px;
+    height: 25px;
 }
 .contain{
     margin:0px auto;
     width: auto;
-    border: 1px solid black;
     width: fit-content;
+    
 }
 .flag{
     width: 25px;
     height: 25px;
+    transform: translate(-50%,-50%);
 }
 button{
     display: block;
@@ -43,9 +46,28 @@ button{
 .red{
     background-color: red;
 }
-.lightgray{
+.lightgrey{
     background-color: lightgray;
 }
-.grey:hover{
-    filter:brightness(70%);
+.lightgreen{
+    background-color: lightgreen;
+}
+
+/* Cool effect HOVER cells */
+
+.grey::before{
+    content:" ";
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    background-color: rgb(87, 87, 87);
+    transform: scaleY(0) translate(-50%,-50%);
+    transform-origin: top;
+    filter: opacity(0.7);
+    transition: transform 0.4s ease;
+}
+.grey:hover::before{
+    transform: scaleY(1) translate(-50%,-50%);
+    transform-origin: top;
+    filter: opacity(1);
 }

@@ -1,7 +1,6 @@
 import { Component, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import * as _ from 'lodash';
-import { reduce } from 'lodash';
 import { Cell } from 'src/app/models/cell.models';
 import { SettingsService } from 'src/app/service/settings.service';
 import { ChronoComponent } from '../chrono/chrono.component';
@@ -13,13 +12,15 @@ import { ChronoComponent } from '../chrono/chrono.component';
 })
 export class GameinitComponent implements OnInit {
   gamePanel: Cell[][] = [];
+  sizeArray: any[] = []
+  indexOfFC: number[] = [];
+  
   bomb: number = 12;
   flag: number = this.bomb;
   panelSize: number = 10;
-  sizeArray: any[] = []
   cellLeft: number = this.panelSize * this.panelSize;
+  
   firstclick: boolean = false;
-  indexOfFC: number[] = [];
   gameEndW: boolean = false;
   gameEndL: boolean = false;
   gameEnd: boolean = false;
@@ -29,6 +30,7 @@ export class GameinitComponent implements OnInit {
     i:number;
     j:number;
   }[] = [];
+  
   constructor(private service : SettingsService, private router: Router){ 
     this.bomb = this.service.$bombNb;
     this.panelSize = this.service.$panelsize;
@@ -38,44 +40,10 @@ export class GameinitComponent implements OnInit {
   }
   
   ngOnInit(): void {     
-    
-    console.log(this.bomb);
-    
     this.iniTab();    
   }
-  
-  setBackground(cell:Cell):string{
-    if(cell.$isBomb && cell.$isShow){
-      return "red";
-    }
-    if(!cell.$isShow){
-      return "grey";
-    }else{
-      return "lightgray";
-    }
-    
-    
-  }
 
-  Rclick(check:boolean){  
-    if(this.firstclick){
-      if(check && this.flag > 0){
-        this.flag--;
-      }else{
-        this.flag++;
-      }  
-    }
-    
-  }
-
-  restart(){
-    this.router.navigate(['settings']);
-  }
-
-  endGame(): boolean{
-    
-    return _.flatten(this.gamePanel).some(x => !x.$isBomb && !x.$isShow)
-  }
+  // Instancied all Cells 
   iniTab(){
     for(let i = 0; i < this.panelSize; i++){
       this.gamePanel[i] = []
@@ -84,6 +52,8 @@ export class GameinitComponent implements OnInit {
       }
     }
   }
+
+  // Set Random bomb position
   setBomb(){
     for(let i = 0; i < this.panelSize; i++){
       for(let j = 0; j < this.panelSize ; j++){
@@ -101,6 +71,8 @@ export class GameinitComponent implements OnInit {
     }    
 
   }
+
+  // Iterate on First click to set Cells value regardless to bomb
   iteratorPanel(){
     for(let i = 0; i < this.panelSize; i++){
       for(let j = 0; j < this.panelSize; j++){
@@ -111,6 +83,7 @@ export class GameinitComponent implements OnInit {
     }
   }
 
+  // Check if neightbours are bomb and set right value of cells
   setNeightbours(i: number, j: number){
 
     for(let row = -1; row <= 1; row++){
@@ -123,6 +96,8 @@ export class GameinitComponent implements OnInit {
       }
     }
   }
+
+
   getPos(i:number,j:number){
     if(!this.firstclick){
       this.indexOfFC[0] = i;
@@ -148,6 +123,7 @@ export class GameinitComponent implements OnInit {
       this.gameEnd = true;
       
     }
+    // if value = 0 -> show all neightbours until != 0
     if(this.gamePanel[i][j].$value == 0){
       for( let cell of this.getNeightbours(i,j)){
         this.getPos(cell.i,cell.j);
@@ -180,9 +156,60 @@ export class GameinitComponent implements OnInit {
     }
     return tab;
   }
+  
+  // Set right colors of Cells
+  // @Param : Cell
+  /*
+    --red -> Bomb
+    --Grey -> Hide cells
+    --LightGrey -> Showed Cells
+  */
+  setBackground(cell:Cell):string{
+    if(cell.$isBomb && cell.$isShow){
+      return "red";
+    }
+    if(!cell.$isShow && !cell.$isFlag){
+      return "grey";
+    }
+    if(!cell.$isFlag){
+      return 'lightgrey';
+    }else{
+      return "lightgreen";
+    }
+    
+      
+    
+    
+  }
+
+  // Count Flag already set
+  Rclick(check:boolean){  
+    if(this.firstclick){
+      if(check && this.flag > 0){
+        this.flag--;
+      }else{
+        this.flag++;
+      }  
+    }
+    
+  }
+
+  // Send to settings comp 
+  restart(){
+    this.router.navigate(['settings']);
+  }
+
+  // Return False when all not bomb cell are show (WIN)
+  endGame(): boolean{
+    return _.flatten(this.gamePanel).some(x => !x.$isBomb && !x.$isShow)
+  }
+
+  
+
 
   // @RETURN TRUE if @param ! neightbours
 
+  // This is the zone where NO BOMBS are allowed (First clicked cells == center of the safe zone)
   saveZone(x:number,y:number):boolean{
     const i = this.indexOfFC[0];
     const j = this.indexOfFC[1];    
@@ -201,12 +228,13 @@ export class GameinitComponent implements OnInit {
  // @Return TRUE 
  // If in BOUND 
 
+  // Check if not out of game panel
   isValid(i:number,j:number){
     return i>=0 && i <= this.panelSize - 1 && j >= 0 && j <= this.panelSize -1; 
   }
 
+  // Set colors with Value of cells
   setColors(item: Cell){
-   
     switch(item.$value){
       case 1 : return 'blue';
       break;
@@ -214,7 +242,9 @@ export class GameinitComponent implements OnInit {
       break;
       case 3 : return 'orange';
       break;
-      case 4 : return 'red';
+      case 4 : return 'yellow';
+      break;
+      case 5 : return 'red'
       break;
       default : return 'black';
     }

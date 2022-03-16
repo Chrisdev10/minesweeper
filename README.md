@@ -1,27 +1,32 @@
 # Minesweeper
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.2.3.
+Welcome to my `MineSweeper` game. \
+The game is made with Angular and Bootstrap. 
 
-## Development server
+# Rules 
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+- Like Classic minesweeper, the goal is to find **all bombs** position using  **flag** 🏳️
+- Max bomb is Half of game cells (ex: 10x10 gamePanel -> max bomb: 50)
 
-## Code scaffolding
+# Future update
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+More challenging game mode to come 😈
+</br>
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+# How to play ?
 
-## Running unit tests
+Game is accessible from [here](http://chrisdev10.github.io/minesweeper) 🔥
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+**OR**
 
-## Running end-to-end tests
+Download all the files and run it locally using `ng serve`
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Screenshot
 
-## Further help
+</br>
+</br>
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+![GameScreen](/minesweeper/src/assets/capture.png)
+
